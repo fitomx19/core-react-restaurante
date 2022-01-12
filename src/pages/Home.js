@@ -5,6 +5,7 @@ import Caracteristicas from '../components/Caracteristicas';
 import Precio from '../components/Precio';
 import Footer from '../components/Footer';
 import NavBar from '../components/NavBar';
+import Faq from '../components/Faq';
 import '../App.css';
 
 
@@ -16,6 +17,7 @@ const Home = () => (
         <PanelInicio/>
         <Caracteristicas/>
         <Precio/> 
+        <Faq/>
         <Footer/>
     </Layout>
 )

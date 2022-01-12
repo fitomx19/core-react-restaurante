@@ -217,7 +217,7 @@ const PasarelaRegistroUno = () => {
                 <div className="text-white mt-6">
                     Ya tienes una cuenta?
                     <br></br>
-                    <a class="no-underline border-b border-white text-white" href="../login/">
+                    <a className="no-underline border-b border-white text-white" href="../login/">
                         Inicia Sesion
                     </a>.
                 </div>

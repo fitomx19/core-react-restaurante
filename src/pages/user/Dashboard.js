@@ -1,7 +1,17 @@
-import React from 'react'
+import React ,{useContext,useEffect} from 'react';
+import AuthContext from '../../context/autenticacion/authContext'
 
 
 const Dashboard = () => {
+
+
+  const authContext = useContext(AuthContext);
+  const { usuario, usuarioAutenticado, cerrarSesion } = authContext;
+  useEffect(() => {
+                    usuarioAutenticado();
+                    // eslint-disable-next-line
+                  }, [])
+
     return ( 
         <>
         <div>
@@ -18,6 +28,22 @@ const Dashboard = () => {
                       WhatsApp
                     </a>
                   </div>
+                  <header className="app-header">
+      {usuario ? (
+        <p className="nombre-usuario">
+          Hola <span>{usuario.nombre} </span>{" "}
+        </p>
+      ) : null}
+
+      <nav className="nav-principal">
+        <button
+          className="btn btn-blank cerrar-sesion"
+          onClick={() => cerrarSesion()}
+        >
+          Cerrar Sesión
+        </button>
+      </nav>
+    </header>
                   <nav className="p-4 md:py-8 xl:px-0 md:container md:mx-w-6xl md:mx-auto">
                     <div className="hidden lg:flex lg:justify-between lg:items-center">
                       <a href="#" className="flex items-start gap-2 group">
@@ -64,7 +90,7 @@ const Dashboard = () => {
                       <ul className="flex items-center gap-6">
                         <li>
                           <a href="#" className="text-sm font-sans text-gray-800 font-semibold tracking-wider">
-                            Nombre_Usuario
+                          {usuario.nombre}
                           </a>
                         </li>
                         <li>
@@ -203,7 +229,7 @@ const Dashboard = () => {
                             </div>
                             <div className="flex gap-2 md:gap-4 justify-between items-center">
                               <div className="flex flex-col space-y-4">
-                                <h2 className="text-gray-800 font-bold tracking-widest leading-tight">Cuenta de nombre_usuario
+                                <h2 className="text-gray-800 font-bold tracking-widest leading-tight">Cuenta de {usuario.nombre}
                                   </h2>
                                
                               </div>
