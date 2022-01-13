@@ -3,7 +3,9 @@ import AuthContext from '../../context/autenticacion/authContext'
 import PasarelaRegistroUno from '../PasarelaRegistroUno';
 import Cafe from '../../images/cafe.svg'
 import Comida from '../../images/food.svg'
-
+import Dinner from '../../images/dinner.svg'
+import Drinks from '../../images/drinks.svg'
+import Items from '../../components/items'
 
 const Dashboard = () => {
 
@@ -250,6 +252,7 @@ const Dashboard = () => {
                         </div>
                       </div>
                       {/* End First Row */}
+                      <Items/>
                       {/* Start Second Row */}
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-4 xl:p-0 gap-4 xl:gap-6">
                         <div className="col-span-1 md:col-span-2 lg:col-span-4 flex justify-between">
@@ -289,7 +292,7 @@ const Dashboard = () => {
                               <span className="mt-4 text-xs text-gray-600"></span>
                             </div>
                             <div className="bg-yellow-500 p-2 md:p-1 xl:p-2 rounded-md">
-                              <img src="assets/gaming.png" alt="icon" className="w-auto h-8 md:h-6 xl:h-8 object-cover" />
+                              <img src={Dinner} alt="icon" className="w-auto h-8 md:h-6 xl:h-8 object-cover" />
                             </div>
                           </div>
                         </div>
@@ -301,7 +304,7 @@ const Dashboard = () => {
                               <span className="mt-4 text-xs text-gray-500"></span>
                             </div>
                             <div className="bg-indigo-500 p-2 md:p-1 xl:p-2 rounded-md">
-                              <img src="assets/holiday.png" alt="icon" className="w-auto h-8 md:h-6 xl:h-8 object-cover" />
+                              <img src={Drinks} alt="icon" className="w-auto h-8 md:h-6 xl:h-8 object-cover" />
                             </div>
                           </div>
                         </div>
