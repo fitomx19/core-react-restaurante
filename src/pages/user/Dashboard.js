@@ -1,5 +1,8 @@
 import React ,{useContext,useEffect} from 'react';
 import AuthContext from '../../context/autenticacion/authContext'
+import PasarelaRegistroUno from '../PasarelaRegistroUno';
+import Cafe from '../../images/cafe.svg'
+import Comida from '../../images/food.svg'
 
 
 const Dashboard = () => {
@@ -7,10 +10,12 @@ const Dashboard = () => {
 
   const authContext = useContext(AuthContext);
   const { usuario, usuarioAutenticado, cerrarSesion } = authContext;
+  const [showModal2, setModal2] = React.useState(false);
+  
   useEffect(() => {
                     usuarioAutenticado();
                     // eslint-disable-next-line
-                  }, [])
+                  },[])
 
     return ( 
         <>
@@ -28,22 +33,7 @@ const Dashboard = () => {
                       WhatsApp
                     </a>
                   </div>
-                  <header className="app-header">
-      {usuario ? (
-        <p className="nombre-usuario">
-          Hola <span>{usuario.nombre} </span>{" "}
-        </p>
-      ) : null}
-
-      <nav className="nav-principal">
-        <button
-          className="btn btn-blank cerrar-sesion"
-          onClick={() => cerrarSesion()}
-        >
-          Cerrar Sesión
-        </button>
-      </nav>
-    </header>
+                 
                   <nav className="p-4 md:py-8 xl:px-0 md:container md:mx-w-6xl md:mx-auto">
                     <div className="hidden lg:flex lg:justify-between lg:items-center">
                       <a href="#" className="flex items-start gap-2 group">
@@ -90,17 +80,17 @@ const Dashboard = () => {
                       <ul className="flex items-center gap-6">
                         <li>
                           <a href="#" className="text-sm font-sans text-gray-800 font-semibold tracking-wider">
-                          {usuario.nombre}
+                          {usuario ? <p>{usuario.nombre}</p> : null }
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <button onClick={() => cerrarSesion()}>
                             <div className="p-2 rounded hover:bg-gray-200">
                               <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 stroke-current text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                               </svg>
                             </div>
-                          </a>
+                          </button>
                         </li>
                       </ul>
                     </div>
@@ -203,7 +193,7 @@ const Dashboard = () => {
                             <p className="text-white  text-center font-bold text-5xl">PROMOCIONES</p>
                           
                           </div>
-                          <div className="flex justify-between items-end intems-center">
+                          <div className="flex items-center justify-center">
                             <a href="#" className="bg-green-800 px-4 py-3 rounded-lg text-white text-xs tracking-wider font-semibold hover:bg-green-200 hover:text-white">
                               Ver más
                             </a>
@@ -229,7 +219,7 @@ const Dashboard = () => {
                             </div>
                             <div className="flex gap-2 md:gap-4 justify-between items-center">
                               <div className="flex flex-col space-y-4">
-                                <h2 className="text-gray-800 font-bold tracking-widest leading-tight">Cuenta de {usuario.nombre}
+                                <h2 className="text-gray-800 font-bold tracking-widest leading-tight">Cuenta de { usuario ? <p>{usuario.nombre}</p> : null}
                                   </h2>
                                
                               </div>
@@ -251,11 +241,11 @@ const Dashboard = () => {
                             <p className="text-white font-bold">Menus disponibles</p>
                           
                           </div>
-                          <div className="flex justify-between items-end">
+                          <div className="flex items-center justify-center">
                             <a href="#" className="bg-blue-800 px-4 py-3 rounded-lg text-white text-xs tracking-wider font-semibold hover:bg-blue-600 hover:text-white">
                               Ver más
                             </a>
-                            <img src="assets/calendar.png" alt="calendar" className="w-auto h-24 object-cover" />
+                            
                           </div>
                         </div>
                       </div>
@@ -275,7 +265,7 @@ const Dashboard = () => {
                               <span className="mt-4 text-xs text-gray-500"></span>
                             </div>
                             <div className="bg-blue-500 p-2 md:p-1 xl:p-2 rounded-md">
-                              <img src="assets/dish-2.png" alt="icon" className="w-auto h-8 md:h-6 xl:h-8 object-cover" />
+                              <img src={Cafe} alt="icon-desayuno" className="w-auto h-8 md:h-6 xl:h-8 object-cover" />
                             </div>
                           </div>
                         </div>
@@ -287,7 +277,7 @@ const Dashboard = () => {
                               <span className="mt-4 text-xs text-gray-500"></span>
                             </div>
                             <div className="bg-green-500 p-2 md:p-1 xl:p-2 rounded-md">
-                              <img src="assets/grocery.png" alt="icon" className="w-auto h-8 md:h-6 xl:h-8 object-cover" />
+                              <img src={Comida} alt="icon" className="w-auto h-8 md:h-6 xl:h-8 object-cover" />
                             </div>
                           </div>
                         </div>
@@ -373,11 +363,62 @@ const Dashboard = () => {
                           </ul>
                         </div>
                       </div>
-                      {/* End Third Row */}
+                     
                     </div>
                   </main>
-                  {/* End Main */}
+                  
+
+                  { usuario ? (<>hay usuario {usuario.perfil_completo ? null : !showModal2 ? (
+        <>
+          <div
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+          >
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+         
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              
+                <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+                  
+                  <button
+                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setModal2(true)}
+                  >
+                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      ×
+                    </span>
+                  </button>
                 </div>
+              
+                <div className="relative p-6 flex-auto">
+                  
+             
+
+                    <PasarelaRegistroUno/>
+        
+       
+      
+   
+                </div>
+              
+                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setModal2(true)}
+                  >
+                    Cerrar
+                  </button>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null }  </>) : null}
+
+                </div>
+               
         
         </>
      );

@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import AlertaContext from "../context/alertas/alertaContext";
 import AuthContext from "../context/autenticacion/authContext";
 
 
-const Login = (props) => {
+const Login = () => {
   const [showModal, setShowModal] = React.useState(false);
   // extraer los valores del context
   const alertaContext = useContext(AlertaContext);
@@ -14,19 +14,18 @@ const Login = (props) => {
   const authContext = useContext(AuthContext);
   const { mensaje, autenticado, iniciarSesion } = authContext;
 
+  let history = useNavigate()
   // En caso de que el password o usuario no exista
   useEffect(() => {
     if (autenticado) {
-      console.log(autenticado)
-      console.log(props)
-      props.history.push("/dashboard");
+      history('/dashboard')
     }
 
     if (mensaje) {
       mostrarAlerta(mensaje.msg, mensaje.categoria);
     }
     // eslint-disable-next-line
-  }, [mensaje, autenticado, props.history]);
+  }, [mensaje, autenticado]);
 
   // State para iniciar sesión
   const [usuario, guardarUsuario] = useState({
@@ -59,7 +58,7 @@ const Login = (props) => {
   return (
     <>
       <button
-        className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-3xl px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -71,9 +70,9 @@ const Login = (props) => {
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
           >
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              {/*content*/}
+         
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                {/*header*/}
+              
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                   <h3 className="text-3xl font-semibold">
                     Inicio de Sesion
@@ -87,20 +86,20 @@ const Login = (props) => {
                     </span>
                   </button>
                 </div>
-                {/*body*/}
+              
                 <div className="relative p-6 flex-auto">
                   
                 <div className="form-usuario">
       {alerta ? (
-        <div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div>
+        <div className={`text-red-500 ${alerta.categoria}`}> {alerta.msg} </div>
       ) : null}
 
-      <div className="contenedor-form sombra-dark">
-        <h1>Iniciar Sesión</h1>
+      <div className="rounded shadow-md text-black">
+       
 
         <form onSubmit={onSubmit}>
           <div className="campo-form">
-            <label htmlFor="email">Email</label>
+           
             <input
               type="email"
               id="email"
@@ -113,7 +112,7 @@ const Login = (props) => {
           </div>
 
           <div className="campo-form">
-            <label htmlFor="password">Password</label>
+            
             <input
               className="block border border-grey-light w-full p-3 rounded mb-4"
               type="password"
@@ -125,24 +124,22 @@ const Login = (props) => {
             />
           </div>
 
-          <div className="campo-form">
+          <div className="campo-form flex items-center justify-center">
             <input
               type="submit"
-              className="block border border-green-light w-full p-3 rounded mb-4"
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-green-700 rounded"
               value="Iniciar Sesión"
             />
           </div>
         </form>
-
-        <Link to={"/nueva-cuenta"} className="enlace-cuenta">
-          Obtener Cuenta
-        </Link>
+        
+       
       </div>
     </div>
 
 
                 </div>
-                {/*footer*/}
+              
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

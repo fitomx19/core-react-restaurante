@@ -1,32 +1,13 @@
 import React from 'react'
-import * as qs from 'query-string';
-import Footer from '../components/Footer';
-import { toast } from 'wc-toast';
-import NavBar from '../components/NavBar';
+
 const PasarelaRegistroUno = () => {
-    const parsed = qs.parse(window.location.search);
-    console.log(parsed.mail);
-
-    const handleSuccessToast = () => {
-        toast.loading('Cargando ... ');
-    };
-    return ( <>
-            <wc-toast></wc-toast>
-           <div>
-               
-  <NavBar/>        
-<section className="w-full px-3 antialiased bg-gradient-to-r from-green-500  to-green-200 lg:px-6">
-    <div className="mx-auto max-w-7xl">
-     
-        <div className="container py-32 mx-auto text-center sm:px-4">
-
-           
-           
+   
+    return ( <>  
             <section>
 <div className="bg-grey-lighter  flex flex-col">
             <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
                 <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                    <h1 className="mb-8 text-3xl text-center">Continua tu registro {parsed.mail}!</h1>
+                    <h1 className="mb-8 text-3xl text-center">¡Continua tu registro!</h1>
                     
                     <form method="post" className="" action="http://localhost:8000/finalizarregistro">
                    
@@ -37,7 +18,7 @@ const PasarelaRegistroUno = () => {
   </div>
   <input type="number"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-blue-green block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="(55)48701798"/>
 </div>   
-                   <input type="hidden" value={parsed.mail} name="mail"></input>
+                   
                     
                     <label>Selecciona el género que más te identifique</label>
                         <select
@@ -197,42 +178,18 @@ const PasarelaRegistroUno = () => {
                         <option value="32">32 kg</option>
                     
                         </select>
-                    <button
-                        type="submit"
-                        onClick={handleSuccessToast} className="toast-success"
-                        className="w-full text-center py-3 rounded bg-green text-gray-400 hover:bg-green-dark focus:outline-none my-1"
-                    >Crear Cuenta</button>
+                    
                     </form>
-                    <div className="text-center text-sm text-grey-dark mt-4">
-                       Al registrarte aceptas nuestros
-                        <a className="no-underline border-b border-grey-dark text-grey-dark" href="#">
-                          Terminos de servicio
-                        </a> y   
-                        <a className="no-underline border-b border-grey-dark text-grey-dark" href="#">
-                              Politica de Privacidad
-                        </a>
-                    </div>
+                    
                 </div>
 
-                <div className="text-white mt-6">
-                    Ya tienes una cuenta?
-                    <br></br>
-                    <a className="no-underline border-b border-white text-white" href="../login/">
-                        Inicia Sesion
-                    </a>.
-                </div>
+               
             </div>
         </div>
 </section>
            
          
-        </div>
-    </div>
-    
-</section>
-
-</div>
-<Footer/>
+       
            
     </> );
 }

@@ -2,26 +2,27 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AlertaContext from "../context/alertas/alertaContext";
 import AuthContext from "../context/autenticacion/authContext";
-import Login from "./Login";
-
+import { Route, Navigate } from "react-router-dom";
+import Login from "../components/Login";
 const PanelInicio = (props) => {
   //extraer los valores del context
-  const [showModal, setShowModal] = React.useState(false);
   const alertaContext = useContext(AlertaContext);
   const { alerta, mostrarAlerta } = alertaContext;
   const authContext = useContext(AuthContext);
   const { mensaje, autenticado, registrarUsuario } = authContext;
   // En caso de que el usuario se haya autenticado o registrado o sea un registro duplicado
-    useEffect(() => {
-        if(autenticado) {
-            props.history.push('/dashboard');
-        }
+ 
+  useEffect(() => {
+    if (autenticado) {
+      <Navigate to="/dashboard"/>
+    }
 
-        if(mensaje) {
-            mostrarAlerta(mensaje.msg, mensaje.categoria);
-        }
-        // eslint-disable-next-line
-    }, [mensaje, autenticado, props.history]);
+    if (mensaje) {
+      mostrarAlerta(mensaje.msg, mensaje.categoria);
+    }
+    // eslint-disable-next-line
+  }, [mensaje, autenticado, props.history]);
+
   
   //State para iniciar Sesion
   const [usuario, guardarUsuario] = useState({
@@ -150,7 +151,7 @@ const PanelInicio = (props) => {
 
                     <button
                         type="submit"
-                        className="w-full text-center py-3 rounded bg-green text-gray-400 hover:bg-green-dark focus:outline-none my-1"
+                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-green-700 rounded"
                     >Crear Cuenta</button>
                     </form>
                     <div className="text-center text-sm text-grey-dark mt-4">
@@ -163,7 +164,7 @@ const PanelInicio = (props) => {
                         </a>
                     </div>
                 </div>
-                        <h2>{!autenticado ? <h2>hello</h2> : null}</h2>
+                        <h2>{!autenticado ? <h2>Sin iniciar</h2> : autenticado}</h2>
                
             </div>
         </div>
@@ -173,8 +174,13 @@ const PanelInicio = (props) => {
     
 </section>
 
-<Login/>
+              <div className="flex items-center justify-center h-40 ">
+                    
+                    <Login/>
+                   
+              </div>
 </div>
+
 
 
         );
