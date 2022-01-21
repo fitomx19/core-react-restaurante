@@ -1,7 +1,51 @@
-import React from 'react'
+import React,{useContext,useState} from 'react'
+import AuthContext from "../context/autenticacion/authContext";
+import UsuarioContext from '../context/Usuario/usuarioContext';
+import { Route, useNavigate } from "react-router-dom";
 
 const PasarelaRegistroUno = () => {
-   
+    const authContext = useContext(AuthContext);
+    const { usuario,actualizarUsuarioPerfil } = authContext;
+
+
+    
+
+    const [usuarioUpdate, guardarUsuarioUpdate] = useState({
+        phone: "",
+        genre: "",
+        sex: "",
+        obj: "",
+        cm: "",
+        kg: "",
+        _id: usuario._id
+      });
+      //Extraer de usuario
+      const { phone, genre, sex, obj ,cm,kg , _id} = usuarioUpdate;
+      let history = useNavigate();
+
+      const onChang1e = (e) => {
+        guardarUsuarioUpdate({
+          ...usuarioUpdate,
+          [e.target.name]: e.target.value,
+        });
+      };
+    
+      const onSubmit = (e) => {
+        e.preventDefault();
+    
+        //pasar al action
+        try{
+        actualizarUsuarioPerfil({ phone, genre, sex, obj ,cm,kg ,_id })
+        history('/dashboard');
+        
+        }catch(error){
+            console.log(error.message)
+        }
+        
+      };
+    
+
+
     return ( <>  
             <section>
 <div className="bg-grey-lighter  flex flex-col">
@@ -9,21 +53,32 @@ const PasarelaRegistroUno = () => {
                 <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
                     <h1 className="mb-8 text-3xl text-center">¡Continua tu registro!</h1>
                     
-                    <form method="post" className="" action="http://localhost:8000/finalizarregistro">
+                    <form method="post" className="" onSubmit={onSubmit}>
                    
                     <label >Numero de Telefóno</label>
 <div className="relative mt-1">
   <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
   <img src="https://img.icons8.com/ios-glyphs/30/000000/phone--v1.png"/>
   </div>
-  <input type="number"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-blue-green block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="(55)48701798"/>
+  <input type="number"  onChange={onChang1e} name='phone' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-blue-green block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="(55)48701798"/>
 </div>   
-                   
+                    <label>Usuario</label>
+                    {usuario ?<input type="text" value={usuario._id} name='_id'></input>  : <h2>no hay</h2>}
                     
+                    <label>Selecciona tu sexo </label>
+                        <select
+                        className="block border border-grey-light w-full p-3 rounded mb-4"
+                        name="sex"
+                        onChange={onChang1e}
+                        >
+                        <option value="1">Mujer</option>
+                        <option value="2">Hombre</option>
+                        </select>
                     <label>Selecciona el género que más te identifique</label>
                         <select
                         className="block border border-grey-light w-full p-3 rounded mb-4"
                         name="genre"
+                        onChange={onChang1e}
                         >
                         <option value="1">Femenino</option>
                         <option value="2">Masculino</option>
@@ -35,6 +90,7 @@ const PasarelaRegistroUno = () => {
                         <select
                         className="block border border-grey-light w-full p-3 rounded mb-4"
                         name="obj"
+                        onChange={onChang1e}
                         >
                         <option value="1">Bajar de peso</option>
                         <option value="2">Subir de peso</option>
@@ -45,6 +101,7 @@ const PasarelaRegistroUno = () => {
                         <select
                         className="block border border-grey-light w-full p-3 rounded mb-4"
                         name="cm"
+                        onChange={onChang1e}
                         >
                         <option value="90">90 cm</option>
                         <option value="91">91 cm</option>
@@ -172,12 +229,20 @@ const PasarelaRegistroUno = () => {
                         <select
                         className="block border border-grey-light w-full p-3 rounded mb-4"
                         name="kg"
+                        onChange={onChang1e}
                         >
                         <option value="30">30 kg</option>
                         <option value="31">31 kg</option>
                         <option value="32">32 kg</option>
                     
                         </select>
+
+                        <input
+                            type="submit"
+                            className="block border border-grey-light w-full p-3 rounded mb-4"
+                            value="Finalizar">
+
+                            </input>
                     
                     </form>
                     

@@ -11,7 +11,7 @@ const RutaPrivada = ({ children}) => {
     // eslint-disable-next-line
   }, []);
 
-  return (!autenticado && !cargando ? <Navigate to="/"/> : children );
+  return (!autenticado && cargando == false ? <Navigate to="/"/> : children );
 };
 
 

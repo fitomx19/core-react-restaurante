@@ -14,6 +14,7 @@ import {
   LOGIN_EXITOSO,
   LOGIN_ERROR,
   CERRAR_SESION,
+  ACTUALIZAR_INFORMACION_USUARIO
 } from "../../types";
 
 const AuthState = (props) => {
@@ -79,7 +80,7 @@ const AuthState = (props) => {
   const iniciarSesion = async (datos) => {
     try {
       const respuesta = await clienteAxios.post("/api/auth", datos);
-
+      console.log(respuesta.data)
       dispatch({
         type: LOGIN_EXITOSO,
         payload: respuesta.data,
@@ -108,6 +109,25 @@ const AuthState = (props) => {
     });
   };
 
+  const actualizarUsuarioPerfil = async (usuario) => {
+    //console.log(usuario)
+  try {
+    const resultado = await clienteAxios.put(
+      `/api/usuarios/perfil-completo`, 
+      usuario
+    );
+
+    dispatch({
+      type: ACTUALIZAR_INFORMACION_USUARIO,
+      payload: resultado.data,
+    });
+
+    
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   return (
     <AuthContext.Provider
       value={{
@@ -117,6 +137,7 @@ const AuthState = (props) => {
         mensaje: state.mensaje,
         cargando: state.cargando,
         registrarUsuario,
+        actualizarUsuarioPerfil,
         iniciarSesion,
         usuarioAutenticado,
         cerrarSesion,

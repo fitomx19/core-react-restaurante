@@ -20,9 +20,9 @@ const Login = () => {
     if (autenticado) {
       history('/dashboard')
     }
-
-    if (mensaje) {
-      mostrarAlerta(mensaje.msg, mensaje.categoria);
+    console.log(mensaje)
+    if (usuario.msg) {
+      mostrarAlerta(usuario.msg, usuario.categoria);
     }
     // eslint-disable-next-line
   }, [mensaje, autenticado]);
@@ -74,7 +74,7 @@ const Login = () => {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">
+                  <h3 className="text-3xl text-justify font-semibold  hover:text-green-500">
                     Inicio de Sesion
                   </h3>
                   <button
@@ -94,7 +94,7 @@ const Login = () => {
         <div className={`text-red-500 ${alerta.categoria}`}> {alerta.msg} </div>
       ) : null}
 
-      <div className="rounded shadow-md text-black">
+      <div className="text-black">
        
 
         <form onSubmit={onSubmit}>
@@ -103,7 +103,7 @@ const Login = () => {
             <input
               type="email"
               id="email"
-              className="block border border-grey-light w-full p-3 rounded mb-4"
+              className="block border border-grey-light w-full p-3 rounded shadow-md mb-4"
               name="email"
               placeholder="Tu Email"
               value={email}
@@ -114,7 +114,7 @@ const Login = () => {
           <div className="campo-form">
             
             <input
-              className="block border border-grey-light w-full p-3 rounded mb-4"
+              className="block border border-grey-light  w-full p-3 rounded shadow-md mb-4"
               type="password"
               id="password"
               name="password"
@@ -124,7 +124,7 @@ const Login = () => {
             />
           </div>
 
-          <div className="campo-form flex items-center justify-center">
+          <div className="flex items-center  justify-center">
             <input
               type="submit"
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-green-700 rounded"

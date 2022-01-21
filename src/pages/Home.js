@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 import NavBar from '../components/NavBar';
 import Faq from '../components/Faq';
 import '../App.css';
-
+import Items from '../components/items';
 
 
 const Home = () => (
@@ -16,6 +16,7 @@ const Home = () => (
         <NavBar/>
         <PanelInicio/>
         <Caracteristicas/>
+        <Items/>
         <Precio/> 
         <Faq/>
         <Footer/>

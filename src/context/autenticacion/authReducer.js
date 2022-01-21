@@ -5,6 +5,7 @@ import {
     LOGIN_EXITOSO,
     LOGIN_ERROR,
     CERRAR_SESION,
+    ACTUALIZAR_INFORMACION_USUARIO
   } from "../../types";
   
   export default (state, action) => {
@@ -26,7 +27,19 @@ import {
           cargando: false,
         };
       case CERRAR_SESION:
+        localStorage.removeItem("token");
+        return{
+          usuario: null,
+          autenticado:false,
+          cargando: false
+        }
       case LOGIN_ERROR:
+      case ACTUALIZAR_INFORMACION_USUARIO:
+          return {
+            ...state,
+            usuario:  action.payload 
+            
+          }
       case REGISTRO_ERROR:
         localStorage.removeItem("token");
         return {
