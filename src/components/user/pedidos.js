@@ -1,23 +1,32 @@
 import React, {useEffect,useState,useContext} from 'react'
-import ModalDias from './modalDias';
 import MenuContext from '../../context/menu/menuContext'
+import CarritoContext from '../../context/carrito/carritoContext';
 
 const Pedidos = (usuario) => {
     const [fin, setFinSemana] = useState(false);
     const menuContext = useContext(MenuContext);
     const { mostrarMenu,menu } = menuContext;
+
+ 
+    const carritoContext = useContext(CarritoContext);
+    const { anadirCarrito,carrito } = carritoContext;
+
+
     const [numeroDia,setNumeroDia] = useState("");
     let {nombre,meta,genero,telefono,email} = usuario.usuario
 
-    var diasArray = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
 
-    const fecha = () => {
+
+    var diasArray = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
+    let auxiliar;
+   /* const fecha = () => {
         //let options = { weekday: 'long'};
         let nuevaFecha = new Date()
         //return `${newDate.toLocaleDateString("es-MX", options)}`
         return  `${nuevaFecha}`
     }
-    
+    */
+
     const activos = () =>{
         let nuevaFecha = new Date()
         let dia = nuevaFecha.getDay();
@@ -35,7 +44,13 @@ const Pedidos = (usuario) => {
             dias.push(i)
             //console.log(i)
         }
-        //console.log(dias)
+        console.log(dias)
+    
+      const mapRecorrer = (dato) =>{
+        let filtrado = carrito.filter(e => e.numero_dia == dato)
+        
+        return `<p>${filtrado}</p>`
+      }
         return (
      
             <>
@@ -48,7 +63,7 @@ const Pedidos = (usuario) => {
              {[item] >= numeroDia ? 
                 <div className="pt-6 pb-6">
                  
-                    <button  onClick={() => modalWindow(item)} class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full" >Ordena ahora  <p className="text-2xl inline">😋</p></button>
+                 <button  onClick={() => modalWindow(item)} class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full" >Ordena ahora  <p className="text-2xl inline">😋</p></button>
                  
                  </div> :
                  <div className="pt-6 pb-6">
@@ -66,9 +81,98 @@ const Pedidos = (usuario) => {
         )
     }
 
+    const mapDiasFin = () =>{
+        
+      let dias=[]
+      for (var i = 1; i < 6; i++) {
+          dias.push(i)
+          //console.log(i)
+      }
+
+      const mapRecorrer = (dato) =>{
+        console.log(dato)
+        let filtrado = carrito.filter(e => e.numero_dia === dato)
+        
+        return filtrado.length
+      }
+      //console.log(dias)
+  
+      return (
+   
+          <>
+          <div class="flex flex-wrap">
+           {dias.map((item, index) => (
+     <div key={index} class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6  h-50  md:flex-auto">
+        <div class="bg-green-400 text-white items-center text-center ml-2 rounded-2xl border border-gray-50">
+           <p class="font-bold pt-2 pb-2 text-2xl"> {diasArray[item]}</p>
+           <div class="bg-white text-black">
+          
+              <div className="pt-6 pb-6">
+               
+                  <button  onClick={() => modalWindow(item)} class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full" > {mapRecorrer(item) ==1 ? <p className="inline">Modificar pedido</p> : <p className="inline">Ordena ahora</p>} <p className="text-2xl inline">😋</p></button>
+                 
+               </div> 
+             
+                
+           </div>
+        </div>
+     </div>
+    
+           ))}
+            </div>
+          </>
+     
+      )
+  }
+
     //aqui va a ir el controlador de los dias para agregar al state
 
     const [showModalPedido, setshowModalPedido] = React.useState(false);
+
+    const cerrarModal = () =>{
+      setshowModalPedido(false)
+      setNumeroBebida(0)
+      setNumeroGalleta(0)
+      setNumeroPollo(0)
+      
+    }
+
+    const guardarInformacionModal = (e) =>{
+      console.log(e)
+      console.log("meos")
+
+      let informacion = {}
+
+      informacion = {
+            pedido: selectPlatillo,
+            numero_dia:e,
+            extras:{
+                snack:NumeroGalleta,
+                pollo:NumeroPollo,
+                bebida:NumeroBebida
+
+
+            }
+      }
+
+      console.log(informacion)
+      console.log(carrito)
+      try {
+        anadirCarrito([...carrito,informacion])
+        setshowModalPedido(false)
+        setNumeroBebida(0)
+        setNumeroGalleta(0)
+        setNumeroPollo(0)
+        //alert
+      } catch (error) {
+        console.log(error)
+        setshowModalPedido(false)
+        setNumeroBebida(0)
+        setNumeroGalleta(0)
+        setNumeroPollo(0)
+      }
+
+    }
 
     const [AuxDia, setAuxDia] = React.useState("");
 
@@ -77,6 +181,7 @@ const Pedidos = (usuario) => {
         console.log(item)
         setAuxDia(item)
         setshowModalPedido(true)
+        seleccionarComidaDia("")
     }
 
     const [selectPlatillo , seleccionarComidaDia] = useState("")
@@ -89,6 +194,8 @@ const Pedidos = (usuario) => {
     }
 
     const [NumeroBebida,setNumeroBebida] = useState(0)
+    const [NumeroGalleta,setNumeroGalleta] = useState(0)
+    const [NumeroPollo,setNumeroPollo] = useState(0)
 
     const agregarBebida = () =>{
      console.log("e")
@@ -110,6 +217,52 @@ const Pedidos = (usuario) => {
       console.log(NumeroBebida)
     }
 
+
+
+
+    const agregarGalleta = () =>{
+      
+      if(NumeroBebida <= 0){
+        setNumeroGalleta(0)
+      }else{
+        setNumeroGalleta(NumeroGalleta-1)
+      }
+      console.log(NumeroGalleta)
+     }
+ 
+     const agregarGalleta2 = () =>{
+       
+       if(NumeroBebida >= 10){
+        setNumeroGalleta(10)
+       }else{
+        setNumeroGalleta(NumeroGalleta+1)
+       }
+       console.log(NumeroGalleta)
+     }
+
+
+     const agregarPollo = () =>{
+      
+      if(NumeroBebida <= 0){
+        setNumeroPollo(0)
+      }else{
+        setNumeroPollo(NumeroPollo-1)
+      }
+      console.log(NumeroPollo)
+     }
+ 
+     const agregarPollo2 = () =>{
+       
+       if(NumeroBebida >= 10){
+        setNumeroPollo(10)
+       }else{
+        setNumeroPollo(NumeroPollo+1)
+       }
+       console.log(NumeroPollo)
+     }
+
+
+
     useEffect(() => {
        activos()
        mostrarMenu()
@@ -119,11 +272,12 @@ const Pedidos = (usuario) => {
         <>
         
         Aqui van a ir los pedidos por semanas
-        {fin ? 
+        {fin === true ? 
         <div>
-            <p>Realiza tu pedido para iniciar la siguiente semana</p>
+            <p>Realiza tu pedido para iniciar la siguiente semana</p> 
             {
-                mapDias()
+                mapDiasFin()
+                
             }
         </div>
         
@@ -230,18 +384,19 @@ const Pedidos = (usuario) => {
   <div class=" p-6 rounded-lg shadow-lg  text-center bg-white justify-center  flex flex-wrap items-center"> 
   
 
-   <div class="w-10 h-10 rounded-full text-white bg-red-400 flex justify-center items-center">
-       <p>-</p>
- </div>
+   <button onClick={() => agregarGalleta()} class="w-10 h-10 rounded-full text-white bg-red-400 flex justify-center items-center">
+       -
+ </button>
   
   <span
     class="px-4 w-1/3 right-20  text-center py-2  font-semibold text-md flex align-center    ">
     Galleta Snack $50
   </span>
-  <div class="w-10 h-10 rounded-full text-white bg-green-500 flex justify-center items-center">
-       <p>+</p>
- </div>
+  <button onClick={() => agregarGalleta2()} class="w-10 h-10 rounded-full text-white bg-green-500 flex justify-center items-center">
+       +
+ </button>
   </div>
+  {NumeroGalleta}
 </div>
 
 
@@ -249,20 +404,21 @@ const Pedidos = (usuario) => {
     <div class=" p-6 rounded-lg shadow-lg  text-center bg-white justify-center  flex flex-wrap items-center"> 
       
 
-      <div class="w-10 h-10 rounded-full text-white bg-red-400 flex justify-center items-center">
-          <p>-</p>
-    </div>
+      <button onClick={()=> agregarPollo()}class="w-10 h-10 rounded-full text-white bg-red-400 flex justify-center items-center">
+        -
+    </button>
       
       <span
         class="px-4 w-1/3 right-20  text-center py-2  font-semibold text-md flex align-center    ">
         100 gramos pollo asado $50
+        
       </span>
-      <div class="w-10 h-10 rounded-full text-white bg-green-500 flex justify-center items-center">
-          <p>+</p>
-    </div>
+      <button onClick={()=> agregarPollo2()} class="w-10 h-10 rounded-full text-white bg-green-500 flex justify-center items-center">
+         +
+    </button>
       </div>
 </div>
-           
+{NumeroPollo}  
 
     </div>
 
@@ -272,14 +428,14 @@ const Pedidos = (usuario) => {
                     <button
                       className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="button"
-                      onClick={() => setshowModalPedido(false)}
+                      onClick={() => cerrarModal() }
                     >
                       Cerrar
                     </button>
                     <button
                       className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="button"
-                      onClick={() => setshowModalPedido(false)}
+                      onClick={() => guardarInformacionModal(AuxDia)}
                     >
                      Guardar cambios
                     </button>

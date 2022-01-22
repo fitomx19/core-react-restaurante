@@ -5,7 +5,7 @@ import AlertaState from "./context/alertas/alertaState";
 import AuthState from "./context/autenticacion/authState";
 import UsuarioState from "./context/Usuario/usuarioState";
 import MenuState from "./context/menu/menuState";
-
+import CarritoState from './context/carrito/carritoState';
 
 import tokenAuth from './config/token';
 
@@ -24,25 +24,27 @@ function App() {
    
  
         <AlertaState>
-          <AuthState>
-            <UsuarioState>
-              <MenuState>
-              <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/registro" element={<Registro/>}/>
+         <AuthState>
+           <UsuarioState>
+             <MenuState>
+               <CarritoState>
+
+                <Routes>
+                  <Route path="/" element={<Home/>}/>
+                  <Route path="/registro" element={<Registro/>}/>
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <RutaPrivada>
+                        <Dashboard />
+                      </RutaPrivada>
+                    }
+                  />
+                </Routes>
                 
-              
-                <Route
-                  path="/dashboard"
-                  element={
-                    <RutaPrivada>
-                      <Dashboard />
-                    </RutaPrivada>
-          }
-        />
-              </Routes>
+               </CarritoState>
               </MenuState>
-              </UsuarioState>
+            </UsuarioState>
           </AuthState>
         </AlertaState>
      
