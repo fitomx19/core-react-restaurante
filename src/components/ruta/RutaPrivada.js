@@ -4,14 +4,14 @@ import AuthContext from "../../context/autenticacion/authContext";
 
 const RutaPrivada = ({ children}) => {
   const authContext = useContext(AuthContext);
-  const { autenticado, cargando, usuarioAutenticado } = authContext;
+  const { autenticado, cargando, usuario,usuarioAutenticado } = authContext;
 
   useEffect(() => {
     usuarioAutenticado();
     // eslint-disable-next-line
   }, []);
 
-  return (!autenticado && cargando == false ? <Navigate to="/"/> : children );
+  return (!usuario ? <Navigate to="/"/> : children );
 };
 
 

@@ -1,4 +1,4 @@
-import React ,{useContext} from 'react';
+import React ,{useContext,useEffect} from 'react';
 import AuthContext from '../../context/autenticacion/authContext'
 import PasarelaRegistroUno from '../PasarelaRegistroUno';
 import Items from '../../components/items'
@@ -8,9 +8,14 @@ const Dashboard = () => {
 
 
   const authContext = useContext(AuthContext);
-  const { usuario, cerrarSesion } = authContext;
+  const { usuario, cerrarSesion ,usuarioAutenticado } = authContext;
   const [showModal2, setModal2] = React.useState(false);
-
+  
+  useEffect(() => {
+    usuarioAutenticado();
+    // eslint-disable-next-line
+  
+  }, []);
   
     return ( 
         <>
@@ -141,7 +146,7 @@ const Dashboard = () => {
                               </div>
                               <h2 className="text-lg md:text-xl xl:text-3xl text-green-500 font-black tracking-wider">
                                 <span className="md:text-xl"></span>
-                                {usuario ? (usuario.peso) / (usuario.altura*usuario.altura) : <p>Completa el formulario para continuar</p>}
+                                {usuario ? (usuario.peso) : <p>Completa el formulario para continuar</p>}
                               </h2>
                             </div>
                             <div className="flex gap-2 md:gap-4 justify-between items-center">
@@ -151,7 +156,7 @@ const Dashboard = () => {
                               </div>
                               <h2 className="text-lg md:text-xl xl:text-3xl text-gray-700 font-black tracking-wider">
                                 <span className="md:text-xl"></span>
-                                {usuario ? (usuario.peso)/(usuario.altura): <p>Completa el formulario para continuar</p>}
+                                {usuario ? (usuario.altura*100): <p>Completa el formulario para continuar</p>}
                               </h2>
                             </div>
                             
@@ -205,7 +210,7 @@ const Dashboard = () => {
                               </h2>
                             </div>
                             <div className="flex gap-2 md:gap-4">
-                              <a href="#" className="bg-blue-600 px-5 py-3 w-full text-center md:w-auto rounded-lg text-white text-xs tracking-wider font-semibold hover:bg-blue-800">
+                              <a href="/creditos" className="bg-blue-600 px-5 py-3 w-full text-center md:w-auto rounded-lg text-white text-xs tracking-wider font-semibold hover:bg-blue-800">
                                 Agregar creditos
                               </a>
                              

@@ -29,7 +29,7 @@ const MenuState = (props) => {
         
       );
 
-      console.log(resultado.data)
+     // console.log(resultado.data)
       dispatch({
         type: IMPRIMIR_MENU,
         payload: resultado.data,

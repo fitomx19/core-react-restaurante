@@ -12,6 +12,7 @@ import tokenAuth from './config/token';
 import Home from './pages/Home';
 import Registro from './pages/PasarelaRegistroUno';
 import Dashboard from './pages/user/Dashboard';
+import Creditos from './pages/user/Creditos';
 import RutaPrivada from './components/ruta/RutaPrivada';
 
 const token = localStorage.getItem('token');
@@ -40,6 +41,7 @@ function App() {
                       </RutaPrivada>
                     }
                   />
+                  <Route path="/creditos" element={<RutaPrivada><Creditos/></RutaPrivada>}/>
                 </Routes>
                 
                </CarritoState>

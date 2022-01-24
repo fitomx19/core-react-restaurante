@@ -1,6 +1,7 @@
 import React, {useEffect,useState,useContext} from 'react'
 import MenuContext from '../../context/menu/menuContext'
 import CarritoContext from '../../context/carrito/carritoContext';
+import CheckOut from './checkout';
 
 const Pedidos = (usuario) => {
     const [fin, setFinSemana] = useState(false);
@@ -44,7 +45,7 @@ const Pedidos = (usuario) => {
             dias.push(i)
             //console.log(i)
         }
-        console.log(dias)
+        //console.log(dias)
     
       const mapRecorrer = (dato) =>{
         let filtrado = carrito.filter(e => e.numero_dia == dato)
@@ -60,7 +61,7 @@ const Pedidos = (usuario) => {
           <div class="bg-green-400 text-white items-center text-center ml-2 rounded-2xl border border-gray-50">
              <p class="font-bold pt-2 pb-2 text-2xl"> {diasArray[item]}</p>
              <div class="bg-white text-black">
-             {[item] >= numeroDia ? 
+             {[item] > numeroDia ? 
                 <div className="pt-6 pb-6">
                  
                  <button  onClick={() => modalWindow(item)} class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full" >Ordena ahora  <p className="text-2xl inline">😋</p></button>
@@ -90,7 +91,7 @@ const Pedidos = (usuario) => {
       }
 
       const mapRecorrer = (dato) =>{
-        console.log(dato)
+        //console.log(dato)
         let filtrado = carrito.filter(e => e.numero_dia === dato)
         
         return filtrado.length
@@ -109,7 +110,7 @@ const Pedidos = (usuario) => {
           
               <div className="pt-6 pb-6">
                
-                  <button  onClick={() => modalWindow(item)} class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full" > {mapRecorrer(item) ==1 ? <p className="inline">Modificar pedido</p> : <p className="inline">Ordena ahora</p>} <p className="text-2xl inline">😋</p></button>
+                  <button  onClick={() => modalWindow(item)} class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full" > {mapRecorrer(item) >=1 ? <p className="inline">Modificar pedido</p> : <p className="inline">Ordena ahora</p>} <p className="text-2xl inline">😋</p></button>
                  
                </div> 
              
@@ -138,10 +139,14 @@ const Pedidos = (usuario) => {
     }
 
     const guardarInformacionModal = (e) =>{
-      console.log(e)
-      console.log("meos")
+     
 
       let informacion = {}
+      var filtro = carrito.filter(function(f) {
+        return f.numero_dia != e; 
+      });
+
+      console.log(filtro)
 
       informacion = {
             pedido: selectPlatillo,
@@ -155,22 +160,35 @@ const Pedidos = (usuario) => {
             }
       }
 
-      console.log(informacion)
-      console.log(carrito)
-      try {
-        anadirCarrito([...carrito,informacion])
-        setshowModalPedido(false)
-        setNumeroBebida(0)
-        setNumeroGalleta(0)
-        setNumeroPollo(0)
-        //alert
-      } catch (error) {
-        console.log(error)
-        setshowModalPedido(false)
-        setNumeroBebida(0)
-        setNumeroGalleta(0)
-        setNumeroPollo(0)
-      }
+   
+        if(filtro.length==0){
+          //eliminar el pedido anteriormente realizado
+          console.log("no hay busqueda")
+          try {
+           
+            anadirCarrito([...carrito,informacion])
+            setshowModalPedido(false)
+            setNumeroBebida(0)
+            setNumeroGalleta(0)
+            setNumeroPollo(0)
+            //alert
+          } catch (error) {
+            console.log(error)
+            setshowModalPedido(false)
+            setNumeroBebida(0)
+            setNumeroGalleta(0)
+            setNumeroPollo(0)
+          }
+        }else{
+            console.log("si hay busqueda")
+            //anadirCarrito(filtro)
+            anadirCarrito([...filtro,informacion])
+            setshowModalPedido(false)
+            setNumeroBebida(0)
+            setNumeroGalleta(0)
+            setNumeroPollo(0)
+           
+        }
 
     }
 
@@ -178,7 +196,7 @@ const Pedidos = (usuario) => {
 
 
     const modalWindow = (item) =>{
-        console.log(item)
+        //console.log(item)
         setAuxDia(item)
         setshowModalPedido(true)
         seleccionarComidaDia("")
@@ -198,23 +216,23 @@ const Pedidos = (usuario) => {
     const [NumeroPollo,setNumeroPollo] = useState(0)
 
     const agregarBebida = () =>{
-     console.log("e")
+     
      if(NumeroBebida <= 0){
       setNumeroBebida(0)
      }else{
       setNumeroBebida(NumeroBebida-1)
      }
-     console.log(NumeroBebida)
+     //console.log(NumeroBebida)
     }
 
     const agregarBebida2 = () =>{
-      console.log("e")
+      
       if(NumeroBebida >= 10){
        setNumeroBebida(10)
       }else{
        setNumeroBebida(NumeroBebida+1)
       }
-      console.log(NumeroBebida)
+      //console.log(NumeroBebida)
     }
 
 
@@ -227,7 +245,7 @@ const Pedidos = (usuario) => {
       }else{
         setNumeroGalleta(NumeroGalleta-1)
       }
-      console.log(NumeroGalleta)
+      //console.log(NumeroGalleta)
      }
  
      const agregarGalleta2 = () =>{
@@ -237,7 +255,7 @@ const Pedidos = (usuario) => {
        }else{
         setNumeroGalleta(NumeroGalleta+1)
        }
-       console.log(NumeroGalleta)
+       //console.log(NumeroGalleta)
      }
 
 
@@ -248,7 +266,7 @@ const Pedidos = (usuario) => {
       }else{
         setNumeroPollo(NumeroPollo-1)
       }
-      console.log(NumeroPollo)
+      //console.log(NumeroPollo)
      }
  
      const agregarPollo2 = () =>{
@@ -258,7 +276,7 @@ const Pedidos = (usuario) => {
        }else{
         setNumeroPollo(NumeroPollo+1)
        }
-       console.log(NumeroPollo)
+       //console.log(NumeroPollo)
      }
 
 
@@ -300,7 +318,7 @@ const Pedidos = (usuario) => {
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                    <h3 className="text-3xl  sm:text-green-500  md:pt-5 font-semibold">
+                    <h3 className="text-3xl  sm:text-green-500  pt-12 font-semibold">
                       Selecciona tu comida de el {AuxDia ? <p className='inline'>{diasArray[AuxDia]}</p>: null}
                     </h3>
                     <button
@@ -337,7 +355,7 @@ const Pedidos = (usuario) => {
       m-0
       
       focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none" aria-label=".form-select-lg example">
-        <option >Elige tu platillo!</option>
+        <option value="">Elige tu platillo!</option>
         {menu.map(e =>
       <option key={e._id} value={e._id}>{e.nombre}</option>
         )};
@@ -346,14 +364,19 @@ const Pedidos = (usuario) => {
     </div>
     <div>
           {
-            !selectPlatillo ? <p>Selecciona un platillo</p> : 
+            !selectPlatillo ? 
+            <div className="flex flex-wrap items-center">
+              <div className="w-full right-20"><img className='w-25' src="https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/></div>
+              
+            </div>
+            : 
             <>
             <div className="flex flex-wrap items-center">
                 <div className="w-1/2 right-20"><img className='w-25' src={selectPlatillo[0].url}/></div>
                 <div className="w-1/2 pl-20">Informacion nutrimental</div>
             </div>
             <div>
-              Inserte aqui los detalles
+                  Detalles de Pedido: 
             </div>
             </>
           }
@@ -362,7 +385,7 @@ const Pedidos = (usuario) => {
             ¿Quieres añadir algo más?
            
 <div class=" w-full  justify-center pt-2">
-  <div class=" p-6 rounded-lg shadow-lg  text-center bg-white justify-center  flex flex-wrap items-center"> 
+  <div class="  rounded-lg   text-center bg-white justify-center  flex flex-wrap items-center"> 
   
 
   <button onClick={() => agregarBebida()} value="bebidas" class="w-10 h-10 rounded-full text-white bg-red-400 flex justify-center items-center">
@@ -370,18 +393,25 @@ const Pedidos = (usuario) => {
 </button>
  
  <span
-   class="px-4 w-1/3 right-20  text-center py-2  font-semibold text-md flex align-center    ">
+   class="px-4 w-1/3 right-20  text-center py-2  font-semibold text-md flex ">
    Bebidas $35.00
+  
  </span>
  <button onClick={() => agregarBebida2()} class="w-10 h-10 rounded-full text-white bg-green-500 flex justify-center items-center">
       +
 </button>
-<div><p>{NumeroBebida}</p></div>
- </div>
 
+ </div>
+          <div className="flex justify-center">
+          <span
+    class="px-4 py-2 rounded-full text-white bg-green-400 font-semibold text-md flex pt-2 align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
+    {NumeroBebida}
+  </span>
+          </div>
 </div>
+
 <div class="w-full  pt-2">
-  <div class=" p-6 rounded-lg shadow-lg  text-center bg-white justify-center  flex flex-wrap items-center"> 
+  <div class="  rounded-lg   text-center bg-white justify-center  flex flex-wrap items-center"> 
   
 
    <button onClick={() => agregarGalleta()} class="w-10 h-10 rounded-full text-white bg-red-400 flex justify-center items-center">
@@ -396,12 +426,17 @@ const Pedidos = (usuario) => {
        +
  </button>
   </div>
-  {NumeroGalleta}
+  <div className="flex justify-center">
+          <span
+    class="px-4 py-2 rounded-full text-white bg-green-400 font-semibold text-md flex pt-2 align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
+    {NumeroGalleta}
+  </span>
+          </div>
 </div>
 
 
 <div class=" w-full ustify-center pt-2">
-    <div class=" p-6 rounded-lg shadow-lg  text-center bg-white justify-center  flex flex-wrap items-center"> 
+    <div class="  rounded-lg   text-center bg-white justify-center  flex flex-wrap items-center"> 
       
 
       <button onClick={()=> agregarPollo()}class="w-10 h-10 rounded-full text-white bg-red-400 flex justify-center items-center">
@@ -409,16 +444,20 @@ const Pedidos = (usuario) => {
     </button>
       
       <span
-        class="px-4 w-1/3 right-20  text-center py-2  font-semibold text-md flex align-center    ">
+        class="px-4 w-1/3 right-20  text-center py-2  font-semibold text-md flex align-center">
         100 gramos pollo asado $50
-        
       </span>
       <button onClick={()=> agregarPollo2()} class="w-10 h-10 rounded-full text-white bg-green-500 flex justify-center items-center">
          +
     </button>
       </div>
 </div>
-{NumeroPollo}  
+<div className="flex justify-center">
+          <span
+    class="px-4 py-2 rounded-full text-white bg-green-400 font-semibold text-md flex pt-2 align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
+    {NumeroPollo}
+  </span>
+          </div> 
 
     </div>
 
@@ -448,7 +487,9 @@ const Pedidos = (usuario) => {
             
             
             : null
-        }    
+        }  
+
+        {carrito.length >= 1 ? <CheckOut/> :null} 
         </>
      );
 }
