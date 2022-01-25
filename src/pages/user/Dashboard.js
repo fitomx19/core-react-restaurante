@@ -3,7 +3,7 @@ import AuthContext from '../../context/autenticacion/authContext'
 import PasarelaRegistroUno from '../PasarelaRegistroUno';
 import Items from '../../components/items'
 import Pedidos from '../../components/user/pedidos';
-
+import FooterUsers from '../../components/FooterUsers';
 const Dashboard = () => {
 
 
@@ -348,7 +348,7 @@ const Dashboard = () => {
 
                 </div>
                
-        
+                <FooterUsers/>
         </>
      );
 }

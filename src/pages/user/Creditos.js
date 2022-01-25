@@ -1,6 +1,7 @@
 import React ,{useContext,useEffect} from 'react';
 import AuthContext from '../../context/autenticacion/authContext';
-
+import FooterUsers from '../../components/FooterUsers';
+import PrecioPaquetes from '../../components/precioPaquetes'
 const Creditos = () => {
 
     const authContext = useContext(AuthContext);
@@ -31,7 +32,7 @@ const Creditos = () => {
                  
                   <nav className="p-4 md:py-8 xl:px-0 md:container md:mx-w-6xl md:mx-auto">
                     <div className="hidden lg:flex lg:justify-between lg:items-center">
-                      <a href="#" className="flex items-start gap-2 group">
+                      <a href="/dashboard" className="flex items-start gap-2 group">
                         <div className="bg-green-600 text-white p-2 rounded-md group-hover:bg-green-800">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -121,8 +122,9 @@ const Creditos = () => {
                   </nav>
                   </div>
                   <div>
-                      <p>agregar creditos </p>
+                  <PrecioPaquetes/>
                   </div>
+                  <FooterUsers/>
     </> 
     );
 }
