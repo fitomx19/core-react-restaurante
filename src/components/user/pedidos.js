@@ -5,6 +5,8 @@ import CheckOut from './checkout';
 
 const Pedidos = (usuario) => {
     const [fin, setFinSemana] = useState(false);
+    const [something, setSomething] = useState(false);
+    const [detallesPedido, setDetallesPedido] = useState(false);
     const menuContext = useContext(MenuContext);
     const { mostrarMenu,menu } = menuContext;
 
@@ -131,6 +133,8 @@ const Pedidos = (usuario) => {
     const [showModalPedido, setshowModalPedido] = React.useState(false);
 
     const cerrarModal = () =>{
+      setSomething(false)
+      setDetallesPedido(false)
       setshowModalPedido(false)
       setNumeroBebida(0)
       setNumeroGalleta(0)
@@ -168,9 +172,11 @@ const Pedidos = (usuario) => {
            
             anadirCarrito([...carrito,informacion])
             setshowModalPedido(false)
+            setDetallesPedido(false)
             setNumeroBebida(0)
             setNumeroGalleta(0)
             setNumeroPollo(0)
+            setSomething(false)
             //alert
           } catch (error) {
             console.log(error)
@@ -178,6 +184,7 @@ const Pedidos = (usuario) => {
             setNumeroBebida(0)
             setNumeroGalleta(0)
             setNumeroPollo(0)
+            setSomething(false)
           }
         }else{
             console.log("si hay busqueda")
@@ -187,6 +194,7 @@ const Pedidos = (usuario) => {
             setNumeroBebida(0)
             setNumeroGalleta(0)
             setNumeroPollo(0)
+            setSomething(false)
            
         }
 
@@ -334,7 +342,95 @@ const Pedidos = (usuario) => {
                   <div className="relative p-6 flex-auto">
                    
 
-                  <div class="flex justify-center">
+                  
+                {
+                  something ?
+                  <>
+                   <div className="text-xl text-center">
+            ¿Quieres añadir algo más?
+                              
+                    <div class=" w-full  justify-center pt-2">
+                      <div class="  rounded-lg   text-center bg-white justify-center  flex flex-wrap items-center"> 
+                      
+
+                      <button onClick={() => agregarBebida()} value="bebidas" class="w-10 h-10 rounded-full text-white bg-red-400 flex justify-center items-center">
+                        -     
+                    </button>
+                    
+                    <span
+                      class="px-4 w-1/3 right-20  text-center py-2  font-semibold text-md flex ">
+                      Bebidas $35.00
+                      
+                    </span>
+                    <button onClick={() => agregarBebida2()} class="w-10 h-10 rounded-full text-white bg-green-500 flex justify-center items-center">
+                          +
+                    </button>
+
+                    </div>
+                              <div className="flex justify-center">
+                              <span
+                        class="px-4 py-2 rounded-full text-white bg-green-400 font-semibold text-md flex pt-2 align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
+                        {NumeroBebida}
+                      </span>
+                              </div>
+                    </div>
+
+                    <div class="w-full  pt-2">
+                      <div class="  rounded-lg   text-center bg-white justify-center  flex flex-wrap items-center"> 
+                      
+
+                      <button onClick={() => agregarGalleta()} class="w-10 h-10 rounded-full text-white bg-red-400 flex justify-center items-center">
+                          -
+                    </button>
+                      
+                      <span
+                        class="px-4 w-1/3 right-20  text-center py-2  font-semibold text-md flex align-center    ">
+                        Galleta Snack $50
+                      </span>
+                      <button onClick={() => agregarGalleta2()} class="w-10 h-10 rounded-full text-white bg-green-500 flex justify-center items-center">
+                          +
+                    </button>
+                      </div>
+                      <div className="flex justify-center">
+                              <span
+                        class="px-4 py-2 rounded-full text-white bg-green-400 font-semibold text-md flex pt-2 align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
+                        {NumeroGalleta}
+                      </span>
+                              </div>
+                              
+                    </div>
+
+
+                    <div class=" w-full ustify-center pt-2">
+                        <div class="  rounded-lg   text-center bg-white justify-center  flex flex-wrap items-center"> 
+                          
+
+                          <button onClick={()=> agregarPollo()}class="w-10 h-10 rounded-full text-white bg-red-400 flex justify-center items-center">
+                            -
+                        </button>
+                          
+                          <span
+                            class="px-4 w-1/3 right-20  text-center py-2  font-semibold text-md flex align-center">
+                            100 gramos pollo asado $50
+                          </span>
+                          <button onClick={()=> agregarPollo2()} class="w-10 h-10 rounded-full text-white bg-green-500 flex justify-center items-center">
+                            +
+                        </button>
+                          </div>
+                    </div>
+                    <div className="flex justify-center">
+                              <span
+                        class="px-4 py-2 rounded-full text-white bg-green-400 font-semibold text-md flex pt-2 align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
+                        {NumeroPollo}
+                      </span>
+                              </div> 
+
+                        </div>
+                        <button className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full' onClick={() => setSomething(false)}>
+                                  Regresar a platillos
+                              </button></>
+                  : <>
+                    <div class="flex justify-center">
   <div class="mb-3 xl:w-96">
     <select 
       onChange={e => mostrarComidaDia(e.target.value)}
@@ -372,94 +468,26 @@ const Pedidos = (usuario) => {
             : 
             <>
             <div className="flex flex-wrap items-center">
-                <div className="w-1/2 right-20"><img className='w-25' src={selectPlatillo[0].url}/></div>
-                <div className="w-1/2 pl-20">Informacion nutrimental</div>
+                <div className="pt-2 right-20"><img className='w-25' src={selectPlatillo[0].url}/></div>
+                {
+                  detallesPedido ? <div className="w-1/2 pl-20">Detalles de pedido</div> : <div className="w-1/2 pl-20">Informacion nutrimental</div>
+                }
             </div>
-            <div>
-                  Detalles de Pedido: 
+            <div  className=" pt-2 flex flex-wrap items-center">
+                <div className="right-20"> 
+                <button onClick={() => setDetallesPedido(true)} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">Detalles de pedido</button>
+                </div>
+            </div>
+            <div  className="flex flex-wrap items-center">
+            <div className=" right-20"> 
+              <button onClick={() => setSomething(true)} className="bg-green-500 hover:bg-green-700 mt-2 text-white font-bold py-2 px-4 rounded-full">¿Deseas algo más?</button>
+            </div>
             </div>
             </>
           }
     </div>
-    <div className="text-xl text-center">
-            ¿Quieres añadir algo más?
-           
-<div class=" w-full  justify-center pt-2">
-  <div class="  rounded-lg   text-center bg-white justify-center  flex flex-wrap items-center"> 
-  
-
-  <button onClick={() => agregarBebida()} value="bebidas" class="w-10 h-10 rounded-full text-white bg-red-400 flex justify-center items-center">
-     -     
-</button>
- 
- <span
-   class="px-4 w-1/3 right-20  text-center py-2  font-semibold text-md flex ">
-   Bebidas $35.00
-  
- </span>
- <button onClick={() => agregarBebida2()} class="w-10 h-10 rounded-full text-white bg-green-500 flex justify-center items-center">
-      +
-</button>
-
- </div>
-          <div className="flex justify-center">
-          <span
-    class="px-4 py-2 rounded-full text-white bg-green-400 font-semibold text-md flex pt-2 align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
-    {NumeroBebida}
-  </span>
-          </div>
-</div>
-
-<div class="w-full  pt-2">
-  <div class="  rounded-lg   text-center bg-white justify-center  flex flex-wrap items-center"> 
-  
-
-   <button onClick={() => agregarGalleta()} class="w-10 h-10 rounded-full text-white bg-red-400 flex justify-center items-center">
-       -
- </button>
-  
-  <span
-    class="px-4 w-1/3 right-20  text-center py-2  font-semibold text-md flex align-center    ">
-    Galleta Snack $50
-  </span>
-  <button onClick={() => agregarGalleta2()} class="w-10 h-10 rounded-full text-white bg-green-500 flex justify-center items-center">
-       +
- </button>
-  </div>
-  <div className="flex justify-center">
-          <span
-    class="px-4 py-2 rounded-full text-white bg-green-400 font-semibold text-md flex pt-2 align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
-    {NumeroGalleta}
-  </span>
-          </div>
-</div>
-
-
-<div class=" w-full ustify-center pt-2">
-    <div class="  rounded-lg   text-center bg-white justify-center  flex flex-wrap items-center"> 
-      
-
-      <button onClick={()=> agregarPollo()}class="w-10 h-10 rounded-full text-white bg-red-400 flex justify-center items-center">
-        -
-    </button>
-      
-      <span
-        class="px-4 w-1/3 right-20  text-center py-2  font-semibold text-md flex align-center">
-        100 gramos pollo asado $50
-      </span>
-      <button onClick={()=> agregarPollo2()} class="w-10 h-10 rounded-full text-white bg-green-500 flex justify-center items-center">
-         +
-    </button>
-      </div>
-</div>
-<div className="flex justify-center">
-          <span
-    class="px-4 py-2 rounded-full text-white bg-green-400 font-semibold text-md flex pt-2 align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
-    {NumeroPollo}
-  </span>
-          </div> 
-
-    </div>
+                  </>
+                }
 
                   </div>
                   {/*footer*/}

@@ -210,7 +210,7 @@ const Dashboard = () => {
                               </h2>
                             </div>
                             <div className="flex gap-2 md:gap-4">
-                              <a href="/creditos" className="bg-blue-600 px-5 py-3 w-full text-center md:w-auto rounded-lg text-white text-xs tracking-wider font-semibold hover:bg-blue-800">
+                              <a href="/creditos" className="bg-green-600 px-5 py-3 w-full text-center md:w-auto rounded-lg text-white text-xs tracking-wider font-semibold hover:bg-blue-800">
                                 Agregar creditos
                               </a>
                              

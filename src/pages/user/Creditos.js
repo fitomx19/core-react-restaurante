@@ -1,8 +1,58 @@
-import React ,{useContext,useEffect} from 'react';
+import React ,{useContext,useEffect,useState} from 'react';
 import AuthContext from '../../context/autenticacion/authContext';
 import FooterUsers from '../../components/FooterUsers';
 import PrecioPaquetes from '../../components/precioPaquetes'
+import {loadStripe} from '@stripe/stripe-js'
+import {Elements, CardElement,useStripe,useElements} from '@stripe/react-stripe-js'
+import clienteAxios from "../../config/axios";
 const Creditos = () => {
+    
+    const stripePromise = loadStripe("pk_test_51KLcDUDV2LPLClKXi7zSh5NXmWq75yCR1PXLVWryVHrakIEM2k9xMrIvWSsVfi4ZvQZEdP0zUVs1sKDGyXS2QpDP00ewtUPXDR")
+   
+  
+
+    const CheckoutForm = () => {
+      const stripe = useStripe();
+      const elements = useElements();
+      const [loading,setLoading] = useState(false);
+
+      const handleSubmit = async (e) =>{
+        e.preventDefault();
+        console.log("workds!")
+      const {error,paymentMethod} = await stripe.createPaymentMethod({
+          type: 'card',
+          card: elements.getElement(CardElement)
+        });
+
+        setLoading(true)
+
+        if(!error){
+          const {id} = paymentMethod
+
+            try {
+              const {data}=  await clienteAxios
+              .post(`/api/payment/checkout`, { 
+                id,amount: 10000
+              });
+              console.log(data)
+              elements.getElement(CardElement).clear();
+            } catch (error) {
+              console.log(error)
+            }
+            setLoading(false)
+
+        }
+      }
+
+      return <div >
+        <form onSubmit={handleSubmit} >
+        <CardElement/>
+        <button disabled={!stripe}>
+          {loading ?<p>Cargando....</p> : <p>Comprar</p>}
+        </button>
+      </form>
+      </div>
+    }
 
     const authContext = useContext(AuthContext);
     const { usuario, cerrarSesion,usuarioAutenticado } = authContext;
@@ -122,7 +172,15 @@ const Creditos = () => {
                   </nav>
                   </div>
                   <div>
-                  <PrecioPaquetes/>
+                        <div>
+                          <Elements stripe={stripePromise}>
+                         
+                           <div class="text-center align-center max-w-md rounded overflow-hidden shadow-lg justify-center ">
+                          
+                                <CheckoutForm/>
+                          </div>
+                          </Elements>
+                        </div>
                   </div>
                   <FooterUsers/>
     </> 
