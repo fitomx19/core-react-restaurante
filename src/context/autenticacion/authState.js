@@ -81,7 +81,7 @@ const AuthState = (props) => {
   const iniciarSesion = async (datos) => {
     try {
       const respuesta = await clienteAxios.post("/api/auth", datos);
-      console.log(respuesta.data)
+      //console.log(respuesta.data)
       dispatch({
         type: LOGIN_EXITOSO,
         payload: respuesta.data,
@@ -90,12 +90,11 @@ const AuthState = (props) => {
       // Obtener el usuario
       usuarioAutenticado();
     } catch (error) {
-     
+     console.log("error")
       const alerta = {
-        msg: error.response.data.msg,
+        msg: "Contraseña y/o correo invalidos",
         categoria: "alerta-error",
       };
-
       dispatch({
         type: LOGIN_ERROR,
         payload: alerta,

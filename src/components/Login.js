@@ -12,7 +12,7 @@ const Login = () => {
   const { alerta, mostrarAlerta } = alertaContext;
 
   const authContext = useContext(AuthContext);
-  const { mensaje, autenticado, iniciarSesion } = authContext;
+  const { mensaje, autenticado, iniciarSesion,usuario } = authContext;
 
   let history = useNavigate()
   // En caso de que el password o usuario no exista
@@ -20,25 +20,23 @@ const Login = () => {
     if (autenticado) {
       history('/dashboard')
     }
-    console.log(mensaje)
-    if (usuario.msg) {
-      mostrarAlerta(usuario.msg, usuario.categoria);
-    }
+
+    
     // eslint-disable-next-line
   }, [mensaje, autenticado]);
 
   // State para iniciar sesión
-  const [usuario, guardarUsuario] = useState({
+  const [usuario1, guardarUsuario] = useState({
     email: "",
     password: "",
   });
 
   // extraer de usuario
-  const { email, password } = usuario;
+  const { email, password } = usuario1;
 
   const onChange = (e) => {
     guardarUsuario({
-      ...usuario,
+      ...usuario1,
       [e.target.name]: e.target.value,
     });
   };
@@ -76,6 +74,12 @@ const Login = () => {
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                   <h3 className="text-3xl text-justify font-semibold  hover:text-green-500">
                     Inicio de Sesion
+                    {alerta ? (
+        <div className={`text-red-500; text-sm `}> {alerta.msg} </div>
+      ) : null}
+        {usuario ? (
+        <div className={`text-red-500 text-sm;  `}> {usuario.msg} </div>
+      ) : null}
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -90,9 +94,7 @@ const Login = () => {
                 <div className="relative p-6 flex-auto">
                   
                 <div className="form-usuario">
-      {alerta ? (
-        <div className={`text-red-500 ${alerta.categoria}`}> {alerta.msg} </div>
-      ) : null}
+    
 
       <div className="text-black">
        
