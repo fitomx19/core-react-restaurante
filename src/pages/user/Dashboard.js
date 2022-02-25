@@ -146,7 +146,12 @@ const Dashboard = () => {
                               </div>
                               <h2 className="text-lg md:text-xl xl:text-3xl text-green-500 font-black tracking-wider">
                                 <span className="md:text-xl"></span>
-                                {usuario ? (usuario.peso) : <p>Completa el formulario para continuar</p>}
+                                {usuario ? 
+                                  <div>
+
+                                  <p>{parseFloat(usuario.peso)/((parseFloat(usuario.altura/100))*(parseFloat(usuario.altura/100)))}</p>
+                              
+                                </div>  : <p>Completa el formulario para continuar</p>}
                               </h2>
                             </div>
                             <div className="flex gap-2 md:gap-4 justify-between items-center">
@@ -204,10 +209,15 @@ const Dashboard = () => {
                                   </h2>
                                
                               </div>
-                              <h2 className="text-lg md:text-xl xl:text-3xl text-gray-700 font-black tracking-wider">
-                                <span className="md:text-xl">$</span>
-                                800.00
+                              {
+                                usuario ? 
+                                <h2 className="text-lg md:text-xl xl:text-3xl text-gray-700 font-black tracking-wider">
+                                
+                                { usuario.creditos ?  <span className="md:text-xl inherit">${usuario.creditos}</span>: <span className="md:text-xl">Aun no tienes credidos!</span>}
                               </h2>
+                                :
+                                <span className="md:text-xl">Aun no tienes credidos!</span>
+                              }
                             </div>
                             <div className="flex gap-2 md:gap-4">
                               <a href="/creditos" className="bg-green-600 px-5 py-3 w-full text-center md:w-auto rounded-lg text-white text-xs tracking-wider font-semibold hover:bg-blue-800">

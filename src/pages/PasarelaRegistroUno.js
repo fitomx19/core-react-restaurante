@@ -35,7 +35,7 @@ const PasarelaRegistroUno = () => {
     
         //pasar al action
         try{
-        actualizarUsuarioPerfil({ phone, genre, sex, obj ,cm,kg ,_id })
+        actualizarUsuarioPerfil({ phone, genre, sex, obj , kg,cm ,_id })
         history('/dashboard');
         
         }catch(error){
@@ -71,6 +71,7 @@ const PasarelaRegistroUno = () => {
                         name="sex"
                         onChange={onChang1e}
                         >
+                        <option value="">-Seleccionar-</option>
                         <option value="1">Mujer</option>
                         <option value="2">Hombre</option>
                         </select>
@@ -80,6 +81,7 @@ const PasarelaRegistroUno = () => {
                         name="genre"
                         onChange={onChang1e}
                         >
+                        <option value="">-Seleccionar-</option>
                         <option value="1">Femenino</option>
                         <option value="2">Masculino</option>
                         <option value="3">No binario</option>
@@ -92,6 +94,7 @@ const PasarelaRegistroUno = () => {
                         name="obj"
                         onChange={onChang1e}
                         >
+                        <option value="">-Seleccionar-</option>
                         <option value="1">Bajar de peso</option>
                         <option value="2">Subir de peso</option>
                         <option value="3">Mantener mi peso ideal</option>
@@ -103,6 +106,7 @@ const PasarelaRegistroUno = () => {
                         name="cm"
                         onChange={onChang1e}
                         >
+                        <option value="">-Seleccionar-</option>
                         <option value="90">90 cm</option>
                         <option value="91">91 cm</option>
                         <option value="93">92 cm</option>
@@ -231,9 +235,93 @@ const PasarelaRegistroUno = () => {
                         name="kg"
                         onChange={onChang1e}
                         >
+                        <option value="">-Seleccionar-</option>
                         <option value="30">30 kg</option>
                         <option value="31">31 kg</option>
                         <option value="32">32 kg</option>
+                        <option value="33">33 kg</option>
+                        <option value="34">34 kg</option>
+                        <option value="35">35 kg</option>
+                        <option value="36">36 kg</option>
+                        <option value="37">37 kg</option>
+                        <option value="38">38 kg</option>
+                        <option value="39">39 kg</option>
+                        <option value="40">40 kg</option>
+                        <option value="41">41 kg</option>
+                        <option value="42">42 kg</option>
+                        <option value="45">43 kg</option>
+                        <option value="44">44 kg</option>
+                        <option value="45">45 kg</option>
+                        <option value="46">46 kg</option>
+                        <option value="47">47 kg</option>
+                        <option value="48">48 kg</option>
+                        <option value="49">49 kg</option>
+                        <option value="50">50 kg</option>
+                        <option value="51">51 kg</option>
+                        <option value="52">52 kg</option>
+                        <option value="53">53 kg</option>
+
+                        <option value="54">54 kg</option>
+                        <option value="55">55 kg</option>
+                        <option value="56">56 kg</option>
+                        <option value="57">57 kg</option>
+                        <option value="58">58 kg</option>
+                        <option value="59">59 kg</option>
+                        <option value="60">60 kg</option>
+                        <option value="61">61 kg</option>
+                        <option value="62">62 kg</option>
+                        <option value="63">63 kg</option>
+                        <option value="64">64 kg</option>
+                        <option value="65">65 kg</option>
+                        <option value="66">66 kg</option>
+                        <option value="67">67 kg</option>
+                        <option value="68">68 kg</option>
+                        <option value="69">69 kg</option>
+                        <option value="70">70 kg</option>
+                        <option value="71">71 kg</option>
+                        <option value="72">72 kg</option>
+                        <option value="73">73 kg</option>
+                        <option value="74">74 kg</option>
+                        <option value="75">75 kg</option>
+                        <option value="76">76 kg</option>
+                        <option value="77">77 kg</option>
+
+                        <option value="78">78 kg</option>
+                        <option value="79">79 kg</option>
+                        <option value="80">80 kg</option>
+                        <option value="81">81 kg</option>
+                        <option value="82">82 kg</option>
+                        <option value="83">83 kg</option>
+                        <option value="84">84 kg</option>
+                        <option value="85">85 kg</option>
+                        <option value="86">86 kg</option>
+                        <option value="87">87 kg</option>
+                        <option value="88">88 kg</option>
+                        <option value="89">89 kg</option>
+                        <option value="90">90 kg</option>
+                        <option value="91">91 kg</option>
+                        <option value="92">92 kg</option>
+                        <option value="93">93 kg</option>
+                        <option value="94">94 kg</option>
+                        <option value="95">95 kg</option>
+                        <option value="96">96 kg</option>
+                        <option value="97">97 kg</option>
+                        <option value="98">98 kg</option>
+                        <option value="99">99 kg</option>
+                        <option value="100">100 kg</option>
+                        <option value="101">101 kg</option>
+                        <option value="102">102 kg</option>
+                        <option value="103">103 kg</option>
+                        <option value="104">104 kg</option>
+                        <option value="105">105 kg</option>
+                        <option value="106">106 kg</option>
+                        <option value="107">107 kg</option>
+                        <option value="108">108 kg</option>
+                        <option value="109">109 kg</option>
+                        <option value="110">110 kg</option>
+                        <option value="111">111 kg</option>
+                        <option value="112">112 kg</option>
+                        <option value="113">113 kg</option>
                     
                         </select>
 
