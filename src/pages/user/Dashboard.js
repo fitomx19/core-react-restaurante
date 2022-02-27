@@ -4,6 +4,7 @@ import PasarelaRegistroUno from '../PasarelaRegistroUno';
 import Items from '../../components/items'
 import Pedidos from '../../components/user/pedidos';
 import FooterUsers from '../../components/FooterUsers';
+import Paquetes from '../../components/user/paquetes';
 const Dashboard = () => {
 
 
@@ -240,7 +241,10 @@ const Dashboard = () => {
                         </div>
                       </div>
                       {/* End First Row */}
-                     
+                      {
+                   usuario ? 
+                   <Paquetes/> : null
+                 }
                       {/* Start Second Row */}
                      {usuario ? <Pedidos usuario={usuario}/>: null}
                       {/* End Second Row */}
@@ -304,9 +308,9 @@ const Dashboard = () => {
                      
                     </div>
                   </main>
-                  
+                
 
-                  { usuario ? (<>hay usuario {usuario.perfil_completo ? null : !showModal2 ? (
+                  { usuario ? (<> {usuario.perfil_completo ? null : !showModal2 ? (
         <>
           <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"

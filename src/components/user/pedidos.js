@@ -296,11 +296,14 @@ const Pedidos = (usuario) => {
     return ( 
         
         <>
-        
-        Aqui van a ir los pedidos por semanas
+        <div className="px-2 py-2 text-center">
+        <p className="text-3xl">¿No quieres ordenar toda la semana?</p>
+        <p className="text-lg">¡Selecciona solo que quieras!</p>
+       
+        </div>
         {fin === true ? 
         <div>
-            <p>Realiza tu pedido para iniciar la siguiente semana</p> 
+            <p className="px-2 py-2 text-center text-xl" >Realiza tu pedido para iniciar la siguiente semana</p> 
             {
                 mapDiasFin()
                 
