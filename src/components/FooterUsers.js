@@ -20,9 +20,9 @@ const FooterUsers = () => {
         <div class="flex flex-wrap justify-center">
           <ul class="flex items-center space-x-4">
             <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
-            <li>Terms</li>
+            <li>Acerca de</li>
+            <li>Contacto</li>
+            <li>Terminos y Condiciones</li>
           </ul>
         </div>
         <div class="flex items-center my-4 lg:my-0">
@@ -56,7 +56,7 @@ const FooterUsers = () => {
                 hover:bg-red-700
               "
             >
-              Subscribe
+              Suscribirse
             </button>
           </form>
         </div>

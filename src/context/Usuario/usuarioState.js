@@ -5,7 +5,7 @@ import UsuarioReducer from "./usuarioReducer";
 
 
 import {
-    ACTUALIZAR_INFORMACION_USUARIO_2
+    ACTUALIZAR_INFORMACION_USUARIO_2,ACTULIZAR_ENVIO
 } from "../../types";
 
 import clienteAxios from "../../config/axios";
@@ -45,14 +45,34 @@ const UsuarioState = (props) => {
     }
   };
 
+  const actualizarDireccion = async (direccion) => {
+    //console.log(direccion);
+    try {
+      const resultado = await clienteAxios.put(
+        `/api/usuarios/direccion-completa`, 
+        direccion
+      );
 
+      //console.log(resultado.data)
+      dispatch({
+        type: ACTULIZAR_ENVIO,
+        payload: resultado.data,
+      });
+
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
    
     <UsuarioContext.Provider
       value={{
         usuario: state.usuario,
+        direccion: state.direccion,
         actualizarUsuario,
+        actualizarDireccion
         
       }}
     >

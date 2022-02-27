@@ -50,7 +50,7 @@ const Dashboard = () => {
                         </p>
                       </a>
                       <ul className="flex items-center space-x-4 text-sm font-semibold">
-                        <li><a href="#" className="px-2 xl:px-4 py-2 text-gray-800 rounded-md hover:bg-gray-200">Mi cuenta</a></li>
+                        <li><a href="/Perfil" className="px-2 xl:px-4 py-2 text-gray-800 rounded-md hover:bg-gray-200">Mi cuenta</a></li>
                         <li><a href="#" className="px-2 xl:px-4 py-2 text-gray-600 rounded-md hover:bg-gray-200">Mis pedidos </a></li>
                         <li><a href="#" className="px-2 xl:px-4 py-2 text-gray-600 rounded-md hover:bg-gray-200">Entrenamiento </a></li>
                         <li><a href="#" className="px-2 xl:px-4 py-2 text-gray-600 rounded-md hover:bg-gray-200">Nutricion </a></li>
@@ -113,7 +113,7 @@ const Dashboard = () => {
                           </div>
                           <div className=" w-1/2 items-end place-content-end pl-10">
                           <ul className=" items-center  text-md font-semibold">
-                        <li><a href="#" className="px-2 text-gray-800 rounded-md hover:bg-gray-200">Mi cuenta</a></li>
+                        <li><a href="/Perfil" className="px-2 text-gray-800 rounded-md hover:bg-gray-200">Mi cuenta</a></li>
                         <li><a href="#" className="px-2  text-gray-600 rounded-md hover:bg-gray-200">Mis pedidos </a></li>
                         <li><a href="#" className="px-2  text-gray-600 rounded-md hover:bg-gray-200">Entrenamiento </a></li>
                         <li><a href="#" className="px-2 text-gray-600 rounded-md hover:bg-gray-200">Nutricion </a></li>
@@ -148,8 +148,7 @@ const Dashboard = () => {
                                 <span className="md:text-xl"></span>
                                 {usuario ? 
                                   <div>
-
-                                  <p>{parseFloat(usuario.peso)/((parseFloat(usuario.altura/100))*(parseFloat(usuario.altura/100)))}</p>
+                                  <p>{(parseFloat(usuario.peso)/((Math.pow(parseFloat(usuario.altura/100), 2))).toFixed(2))}</p>
                               
                                 </div>  : <p>Completa el formulario para continuar</p>}
                               </h2>
