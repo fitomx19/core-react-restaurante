@@ -8,7 +8,7 @@ const Pedidos = (usuario) => {
     const [something, setSomething] = useState(false);
     const [detallesPedido, setDetallesPedido] = useState(false);
     const menuContext = useContext(MenuContext);
-    const { mostrarMenu,menu } = menuContext;
+    const { mostrarMenu,mostrarPlanes,menu } = menuContext;
 
  
     const carritoContext = useContext(CarritoContext);
@@ -292,6 +292,7 @@ const Pedidos = (usuario) => {
     useEffect(() => {
        activos()
        mostrarMenu()
+       mostrarPlanes()
       }, []);
     return ( 
         
